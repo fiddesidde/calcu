@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+#mainz {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #98c1d9;
+}
+
+#container {
+    background-color: #293241;
+    border: 5px solid #293241;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    grid-template-rows: minmax(100px, auto) repeat(5, 60px);
+    gap: 2px;
+}
+
+#display {
+    grid-column: 1 / -1;
+    background: white;
+    background: linear-gradient(
+        32deg,
+        rgba(121, 121, 121, 0.3071603641456583) 0%,
+        rgba(215, 215, 215, 1) 12%,
+        rgba(100, 112, 121, 0.4500175070028011) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 5px;
+    font-size: 5.5em;
+    font-weight: 400;
+    text-shadow: 1.3px 1.3px #383838;
+    margin: 5px;
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+
+    margin: 1px;
+    border-radius: 10px;
+    border-top-left-radius: 35px;
+    border: none;
+    font-size: 1.5em;
+    color: black;
+    background-color: #e0fbfc;
+}
+
+.equals {
+    grid-column: span 2;
+    border-radius: 10px;
+    border-bottom-right-radius: 35px;
+    background-color: #ee6c4d;
+}
+
+.operator {
+    background-color: #3d5a80;
+}
