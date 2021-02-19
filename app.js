@@ -169,4 +169,10 @@ function addEventListeners() {
     });
 }
 
+window.addEventListener('keydown', function (e) {
+    console.log(e);
+    const key = document.querySelector(`button[data-key='${e.key}']`);
+    key.click();
+});
+
 addEventListeners();
