@@ -55,10 +55,19 @@ button {
     font-size: 1.5em;
     color: black;
     background-color: #e0fbfc;
+    outline: none;
 }
 
 button:hover {
     border: 1px solid #293241;
+}
+
+button:active {
+    background-color: #98c1d9;
+}
+
+.equals:active {
+    background-color: #6e3121;
 }
 
 .equals {
