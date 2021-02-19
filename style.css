@@ -19,9 +19,10 @@ body {
     border: 5px solid #293241;
     border-radius: 10px;
     display: grid;
-    grid-template-columns: repeat(4, 120px);
+    grid-template-columns: repeat(4, 125px);
     grid-template-rows: minmax(100px, auto) repeat(5, 60px);
     gap: 2px;
+    overflow: hidden;
 }
 
 #display {
@@ -38,7 +39,7 @@ body {
     justify-content: space-around;
     align-items: flex-end;
     padding: 5px;
-    font-size: 5.5em;
+    font-size: 3.6em;
     font-weight: 400;
     text-shadow: 1.3px 1.3px #383838;
     margin: 5px;
@@ -54,6 +55,10 @@ button {
     font-size: 1.5em;
     color: black;
     background-color: #e0fbfc;
+}
+
+button:hover {
+    border: 1px solid #293241;
 }
 
 .equals {
