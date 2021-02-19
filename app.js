@@ -45,22 +45,23 @@ function operatorPress(operator) {
         operatorValue = operator;
         firstNumber = displayValue;
         displayValue += operator;
-        updateDisplay();
     } else {
-        firstNumber = operate(
-            operatorValue,
-            Number(firstNumber),
-            Number(displayValue)
-        );
-        if (firstNumber !== 'lol') {
-            firstNumber = roundNum(firstNumber, 10).toString();
+        if (!/[+-/*]$/.test(displayValue)) {
+            firstNumber = operate(
+                operatorValue,
+                Number(firstNumber),
+                Number(displayValue)
+            );
+            if (firstNumber !== 'lol') {
+                firstNumber = roundNum(firstNumber, 10).toString();
+            }
+            displayValue = firstNumber;
+            result = firstNumber;
+            operatorValue = operator;
+            multi = true;
         }
-        displayValue = firstNumber;
-        result = firstNumber;
-        operatorValue = operator;
-        multi = true;
-        updateDisplay();
     }
+    updateDisplay();
 }
 
 function numberPress(value) {
@@ -95,7 +96,6 @@ function calc() {
         } else {
             secondNumber = displayValue;
         }
-
         result = operate(
             operatorValue,
             Number(firstNumber),
@@ -121,6 +121,8 @@ function calc() {
 
 function decimal() {
     if (displayValue.includes('.')) {
+        displayValue = '0';
+        displayValue += dot;
     } else {
         displayValue += '.';
         updateDisplay();
