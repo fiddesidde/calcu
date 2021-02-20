@@ -19,6 +19,13 @@ function addNumber(number) {
     }
 }
 
+function setOperator(operator) {
+    if (operatorValue !== null) calc();
+    firstNumber = display.textContent;
+    operatorValue = operator;
+    toBeReset = true;
+}
+
 const doOperation = (operation, x, y) => {
     switch (operation) {
         case '+':
