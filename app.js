@@ -2,8 +2,7 @@ let displayValue = '';
 let firstNumber = null;
 let secondNumber = null;
 let operatorValue = null;
-let result = 0;
-let multi = false;
+let toBeReset = false;
 
 const numberButtons = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
@@ -13,8 +12,8 @@ const percentButton = document.querySelector('.percent');
 const decButton = document.querySelector('.decimal');
 const isButton = document.querySelector('.equals');
 
-const operate = (op, x, y) => {
-    switch (op) {
+const doOperation = (operation, x, y) => {
+    switch (operation) {
         case '+':
             return x + y;
         case '-':
@@ -24,120 +23,10 @@ const operate = (op, x, y) => {
         case '/':
             if (y === 0) return 'lol';
             else return x / y;
+        default:
+            return null;
     }
 };
-
-function updateDisplay() {
-    const display = document.getElementById('display');
-
-    display.innerText = displayValue;
-    if (displayValue && displayValue.length > 10) {
-        display.innerText = displayValue.substring(0, 10);
-    }
-    if (displayValue === 'lol') {
-        displayValue = '';
-        firstNumber = null;
-        operatorValue = null;
-    }
-}
-function operatorPress(operator) {
-    if (operatorValue === null) {
-        operatorValue = operator;
-        firstNumber = displayValue;
-        displayValue += operator;
-    } else {
-        if (!/[+-/*]$/.test(displayValue)) {
-            firstNumber = operate(
-                operatorValue,
-                Number(firstNumber),
-                Number(displayValue)
-            );
-            if (firstNumber !== 'lol') {
-                firstNumber = roundNum(firstNumber, 10).toString();
-            }
-            displayValue = firstNumber;
-            result = firstNumber;
-            operatorValue = operator;
-            multi = true;
-        }
-    }
-    updateDisplay();
-}
-
-function numberPress(value) {
-    if (
-        displayValue === firstNumber + operatorValue ||
-        result === displayValue
-    ) {
-        displayValue = value;
-        multi = false;
-    } else {
-        displayValue += value;
-    }
-}
-
-function clearE() {
-    displayValue = '';
-    firstNumber = null;
-    secondNumber = null;
-    operatorValue = null;
-    result = null;
-    updateDisplay();
-}
-
-function calc() {
-    if (!multi && operatorValue) {
-        if (/[+-/*]$/.test(displayValue)) {
-            if (operatorValue === '+' || operatorValue === '-') {
-                secondNumber = 0;
-            } else {
-                secondNumber = 1;
-            }
-        } else {
-            secondNumber = displayValue;
-        }
-        result = operate(
-            operatorValue,
-            Number(firstNumber),
-            Number(secondNumber)
-        );
-        if (result !== 'lol') {
-            result = roundNum(result, 8).toString();
-        }
-        displayValue = result;
-        operatorValue = null;
-        firstNumber = result;
-        multi = false;
-    } else if (!secondNumber) {
-        firstNumber = displayValue;
-        operatorValue = null;
-        displayValue = result;
-    } else {
-        operatorValue = null;
-        displayValue = result;
-    }
-    updateDisplay();
-}
-
-function decimal() {
-    if (displayValue.includes('.')) {
-        displayValue = '0';
-        displayValue += dot;
-    } else {
-        displayValue += '.';
-        updateDisplay();
-    }
-}
-
-function percent() {
-    displayValue = (displayValue / 100).toString();
-    updateDisplay();
-}
-
-function invert() {
-    displayValue = (displayValue * -1).toString();
-    updateDisplay();
-}
 
 const roundNum = (number, decimalPlaces) =>
     Number(Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces);
@@ -146,7 +35,6 @@ function addEventListeners() {
     for (let button of numberButtons) {
         button.addEventListener('click', () => {
             numberPress(button.value);
-            updateDisplay();
         });
     }
     for (let operator of operators) {
@@ -155,24 +43,23 @@ function addEventListeners() {
         });
     }
     isButton.addEventListener('click', () => {
-        calc();
+        // calc();
     });
     clearButton.addEventListener('click', () => {
-        clearE();
+        // clearE();
     });
     decButton.addEventListener('click', () => {
-        decimal();
+        // decimal();
     });
     percentButton.addEventListener('click', () => {
-        percent();
+        // percent();
     });
     invButton.addEventListener('click', () => {
-        invert();
+        // invert();
     });
 }
 
 window.addEventListener('keydown', function (e) {
-    console.log(e);
     const key = document.querySelector(`button[data-key='${e.key}']`);
     key.click();
 });
