@@ -72,6 +72,10 @@ function addDecimal() {
     if (!display.textContent.includes('.')) display.textContent += '.';
 }
 
+function percent() {
+    display.textContent = Number(display.textContent) / 100;
+}
+
 const roundNum = (number, decimalPlaces) =>
     Number(Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces);
 
@@ -96,7 +100,7 @@ function addEventListeners() {
         addDecimal();
     });
     percentButton.addEventListener('click', () => {
-        // percent();
+        percent();
     });
     invButton.addEventListener('click', () => {
         display.textContent = '-' + display.textContent;
