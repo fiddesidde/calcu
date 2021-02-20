@@ -33,6 +33,8 @@ function calc() {
         doOperation(operatorValue, firstNumber, secondNumber),
         2
     );
+    displayToBeCleared = true;
+    operatorValue = null;
 }
 
 const doOperation = (operation, x, y) => {
