@@ -93,7 +93,7 @@ function addEventListeners() {
         // percent();
     });
     invButton.addEventListener('click', () => {
-        // invert();
+        display.textContent = '-' + display.textContent;
     });
 }
 
