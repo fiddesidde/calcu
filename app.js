@@ -21,18 +21,22 @@ function addNumber(number) {
 
 function setOperator(operator) {
     if (operatorValue !== null) calc();
-    firstNumber = display.textContent;
-    operatorValue = operator;
-    displayToBeCleared = true;
+    if (display.textContent !== 'lol') {
+        firstNumber = display.textContent;
+        operatorValue = operator;
+        displayToBeCleared = true;
+    }
 }
 
 function calc() {
     if (operatorValue === null || displayToBeCleared === true) return;
+
     secondNumber = display.textContent;
-    display.textContent = roundNum(
-        doOperation(operatorValue, firstNumber, secondNumber),
-        2
-    );
+    let result = doOperation(operatorValue, firstNumber, secondNumber);
+
+    if (result === 'lol') display.textContent = 'lol';
+    else display.textContent = roundNum(result, 3);
+
     displayToBeCleared = true;
     operatorValue = null;
 }
