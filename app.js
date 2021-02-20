@@ -1,8 +1,8 @@
-let displayValue = '';
 let firstNumber = null;
 let secondNumber = null;
 let operatorValue = null;
 let displayToBeCleared = false;
+let result = null;
 
 const numberButtons = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
@@ -14,7 +14,7 @@ const isButton = document.querySelector('.equals');
 const display = document.querySelector('#display');
 
 function addNumber(number) {
-    if (displayToBeCleared === true) clearDisplay();
+    if (displayToBeCleared) clearDisplay();
     if (display.textContent.length >= 10) return;
     display.textContent += number;
 }
@@ -29,13 +29,13 @@ function setOperator(operator) {
 }
 
 function calc() {
-    if (operatorValue === null || displayToBeCleared === true) return;
+    if (operatorValue === null || displayToBeCleared) return;
 
     secondNumber = display.textContent;
-    let result = doOperation(operatorValue, firstNumber, secondNumber);
+    result = doOperation(operatorValue, firstNumber, secondNumber);
 
     if (result === 'lol') display.textContent = 'lol';
-    else display.textContent = roundNum(result, 3);
+    else display.textContent = round(result);
 
     displayToBeCleared = true;
     operatorValue = null;
@@ -80,8 +80,15 @@ function percent() {
     display.textContent = Number(display.textContent) / 100;
 }
 
-const roundNum = (number, decimalPlaces) =>
-    Number(Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces);
+const roundNum = number => {
+    let decimalPlaces =
+        10 - (Math.max(Math.floor(Math.log10(Math.abs(number))), 0) + 1);
+    return Number(
+        Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces
+    );
+};
+
+const round = number => Math.round(number * 1000) / 1000;
 
 function addEventListeners() {
     for (let button of numberButtons) {
@@ -94,18 +101,10 @@ function addEventListeners() {
             setOperator(operator.value);
         });
     }
-    isButton.addEventListener('click', () => {
-        calc();
-    });
-    clearButton.addEventListener('click', () => {
-        reset();
-    });
-    decButton.addEventListener('click', () => {
-        addDecimal();
-    });
-    percentButton.addEventListener('click', () => {
-        percent();
-    });
+    isButton.addEventListener('click', calc);
+    clearButton.addEventListener('click', reset);
+    decButton.addEventListener('click', addDecimal);
+    percentButton.addEventListener('click', percent);
     invButton.addEventListener('click', () => {
         display.textContent = '-' + display.textContent;
     });
