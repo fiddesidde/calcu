@@ -80,3 +80,15 @@ button:active {
 .operator {
     background-color: #3d5a80;
 }
+
+@media (max-width: 560px) {
+    #container {
+        grid-template-columns: repeat(4, 60px);
+    }
+    #display {
+        font-size: 1.8em;
+    }
+    button {
+        font-size: 1.2em;
+    }
+}
