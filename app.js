@@ -11,6 +11,13 @@ const invButton = document.querySelector('.invert');
 const percentButton = document.querySelector('.percent');
 const decButton = document.querySelector('.decimal');
 const isButton = document.querySelector('.equals');
+const display = document.querySelector('#display');
+
+function addNumber(number) {
+    if (display.textContent.length < 10) {
+        display.textContent += number;
+    }
+}
 
 const doOperation = (operation, x, y) => {
     switch (operation) {
@@ -34,7 +41,7 @@ const roundNum = (number, decimalPlaces) =>
 function addEventListeners() {
     for (let button of numberButtons) {
         button.addEventListener('click', () => {
-            numberPress(button.value);
+            addNumber(button.value);
         });
     }
     for (let operator of operators) {
