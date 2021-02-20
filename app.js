@@ -15,7 +15,7 @@ const display = document.querySelector('#display');
 
 function addNumber(number) {
     if (displayToBeCleared) clearDisplay();
-    if (display.textContent.length >= 10) return;
+    if (display.textContent.length >= 9) return;
     display.textContent += number;
 }
 
