@@ -35,7 +35,7 @@ function calc() {
     result = doOperation(operatorValue, firstNumber, secondNumber);
 
     if (result === 'lol') display.textContent = 'lol';
-    else display.textContent = round(result);
+    else display.textContent = roundNum(result);
 
     displayToBeCleared = true;
     operatorValue = null;
@@ -81,38 +81,37 @@ function percent() {
 }
 
 const roundNum = number => {
-    let decimalPlaces =
-        10 - (Math.max(Math.floor(Math.log10(Math.abs(number))), 0) + 1);
+    const numberOfDigits =
+        Math.max(Math.floor(Math.log10(Math.abs(number))), 0) + 1;
+    let decimalPlaces = 10 - numberOfDigits;
+
+    if (decimalPlaces < 2) decimalPlaces = 2;
+    if (Number.isInteger(number)) return number;
+
     return Number(
         Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces
     );
 };
 
-const round = number => Math.round(number * 1000) / 1000;
-
-function addEventListeners() {
-    for (let button of numberButtons) {
-        button.addEventListener('click', () => {
-            addNumber(button.value);
-        });
-    }
-    for (let operator of operators) {
-        operator.addEventListener('click', () => {
-            setOperator(operator.value);
-        });
-    }
-    isButton.addEventListener('click', calc);
-    clearButton.addEventListener('click', reset);
-    decButton.addEventListener('click', addDecimal);
-    percentButton.addEventListener('click', percent);
-    invButton.addEventListener('click', () => {
-        display.textContent = '-' + display.textContent;
+for (let button of numberButtons) {
+    button.addEventListener('click', () => {
+        addNumber(button.value);
     });
 }
+for (let operator of operators) {
+    operator.addEventListener('click', () => {
+        setOperator(operator.value);
+    });
+}
+isButton.addEventListener('click', calc);
+clearButton.addEventListener('click', reset);
+decButton.addEventListener('click', addDecimal);
+percentButton.addEventListener('click', percent);
+invButton.addEventListener('click', () => {
+    display.textContent = '-' + display.textContent;
+});
 
 window.addEventListener('keydown', function (e) {
     const key = document.querySelector(`button[data-key='${e.key}']`);
     key.click();
 });
-
-addEventListeners();
