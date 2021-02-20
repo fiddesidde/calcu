@@ -73,6 +73,7 @@ function reset() {
 }
 
 function addDecimal() {
+    if (displayToBeCleared) clearDisplay();
     if (!display.textContent.includes('.')) display.textContent += '.';
 }
 
