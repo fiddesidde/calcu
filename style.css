@@ -43,6 +43,8 @@ body {
     font-weight: 400;
     text-shadow: 1.3px 1.3px #383838;
     margin: 5px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 button {
