@@ -2,7 +2,7 @@ let displayValue = '';
 let firstNumber = null;
 let secondNumber = null;
 let operatorValue = null;
-let toBeReset = false;
+let displayToBeCleared = false;
 
 const numberButtons = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
@@ -14,19 +14,30 @@ const isButton = document.querySelector('.equals');
 const display = document.querySelector('#display');
 
 function addNumber(number) {
-    if (display.textContent.length < 10) {
-        display.textContent += number;
-    }
+    if (displayToBeCleared === true) clearDisplay();
+    if (display.textContent.length >= 10) return;
+    display.textContent += number;
 }
 
 function setOperator(operator) {
     if (operatorValue !== null) calc();
     firstNumber = display.textContent;
     operatorValue = operator;
-    toBeReset = true;
+    displayToBeCleared = true;
+}
+
+function calc() {
+    if (operatorValue === null || displayToBeCleared === true) return;
+    secondNumber = display.textContent;
+    display.textContent = roundNum(
+        doOperation(operatorValue, firstNumber, secondNumber),
+        2
+    );
 }
 
 const doOperation = (operation, x, y) => {
+    x = Number(x);
+    y = Number(y);
     switch (operation) {
         case '+':
             return x + y;
@@ -42,6 +53,19 @@ const doOperation = (operation, x, y) => {
     }
 };
 
+function clearDisplay() {
+    display.textContent = '';
+    displayToBeCleared = false;
+}
+
+function reset() {
+    display.textContent = '';
+    firstNumber = null;
+    secondNumber = null;
+    operatorValue = null;
+    displayToBeCleared = false;
+}
+
 const roundNum = (number, decimalPlaces) =>
     Number(Math.round(number + 'e' + decimalPlaces) + 'e-' + decimalPlaces);
 
@@ -53,14 +77,14 @@ function addEventListeners() {
     }
     for (let operator of operators) {
         operator.addEventListener('click', () => {
-            operatorPress(operator.value);
+            setOperator(operator.value);
         });
     }
     isButton.addEventListener('click', () => {
-        // calc();
+        calc();
     });
     clearButton.addEventListener('click', () => {
-        // clearE();
+        reset();
     });
     decButton.addEventListener('click', () => {
         // decimal();
