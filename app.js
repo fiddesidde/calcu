@@ -22,7 +22,10 @@ function addNumber(number) {
 function setOperator(operator) {
     if (operatorValue !== null) calc();
     if (display.textContent !== 'lol') {
-        firstNumber = display.textContent;
+        if (!/[+\-*\/]/.test(display.textContent)) {
+            firstNumber = display.textContent;
+            display.textContent += operator;
+        }
         operatorValue = operator;
         displayToBeCleared = true;
     }
